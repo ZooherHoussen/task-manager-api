@@ -1,9 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from app.routers import auth
 
 app = FastAPI(
     title="Task Manager API",
-    description="Fullstack task manager built with FastAPI",
+    description="Fullstack task manager — FastAPI + React + PostgreSQL",
     version="1.0.0"
 )
 
@@ -14,6 +15,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(auth.router)
 
 @app.get("/")
 def root():
