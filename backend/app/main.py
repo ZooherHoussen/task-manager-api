@@ -1,6 +1,14 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers import auth, tasks
+from alembic.config import Config
+from alembic import command
+
+def run_migrations():
+    alembic_cfg = Config("alembic.ini")
+    command.upgrade(alembic_cfg, "head")
+
+run_migrations()
 
 app = FastAPI(
     title="Task Manager API",
